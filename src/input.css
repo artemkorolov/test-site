@@ -78,7 +78,7 @@
 /* ===== Секції ===== */
 /* Вертикальні відступи секції */
 @utility section {
-  @apply py-10 md:py-14;
+  @apply py-14 md:py-16;
 }
 /* Обмеження ширини контенту по центру */
 @utility container-site {
