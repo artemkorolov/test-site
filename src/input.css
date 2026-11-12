@@ -1,0 +1,99 @@
+/*
+  Файл: src/input.css
+  Призначення: вхідний файл Tailwind v4 — дизайн-токени сайту (кольори, шрифт, радіуси, тіні) і готові класи.
+             З нього збирається css/style.css (npm run build). Сам css/style.css руками не правимо.
+  Як правити: кольори — у блоці @theme; готові класи (btn, section-title…) — у блоках @utility нижче
+  Статус: готово
+*/
+
+@import "tailwindcss";
+
+/* Де шукати класи Tailwind */
+@source "../index.html";
+@source "../js";
+
+/* ===== Токени: кожен стає класом Tailwind (bg-green, text-muted, rounded-md, shadow-card…) ===== */
+@theme {
+  --font-sans: "Onest", system-ui, sans-serif;
+
+  --breakpoint-md: 860px;        /* з цієї ширини — вигляд для комп'ютера */
+
+  --color-green: #1F7A3A;        /* головна дія */
+  --color-green-dark: #17602D;
+  --color-green-soft: #E7F4E9;
+  --color-green-line: #CDE6D2;
+  --color-blue: #1D5FA8;         /* медичний синій */
+  --color-blue-soft: #EEF4FB;
+  --color-blue-line: #D3E2F3;
+  --color-ink: #14261B;          /* основний текст */
+  --color-muted: #5A6660;        /* другорядний текст */
+  --color-line: #E4E9EE;         /* рамки */
+  --color-page: #F4F7FA;         /* фон сторінки */
+  --color-warn-soft: #FFF4E6;    /* смуга 103 */
+  --color-warn-line: #F3D9B8;
+  --color-warn: #8A4B14;
+  --color-viber: #7360F2;
+  --color-telegram: #229ED9;
+  --color-hero-from: #E3EEF9;    /* фон першого екрана: верх */
+  --color-hero-to: #F4F8FC;      /* фон першого екрана: низ */
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  --shadow-card: 0 10px 30px rgb(20 38 27 / 0.08);
+  --shadow-featured: 0 18px 40px rgb(31 122 58 / 0.16);
+}
+
+/* ===== База ===== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 68px;    /* щоб липка шапка не закривала заголовок після переходу за якорем */
+  }
+  @media (width >= 860px) {
+    html { scroll-padding-top: 84px; }
+  }
+  body {
+    @apply bg-page text-ink font-sans text-[15px] leading-[1.55] md:text-base;
+  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+}
+
+/* ===== Кнопки: class="btn btn-green" ===== */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 min-h-12 px-5 py-2.5 rounded-sm border-[1.5px] border-transparent
+    font-bold text-base no-underline cursor-pointer transition hover:brightness-105;
+}
+@utility btn-green {
+  @apply bg-green text-white;
+}
+@utility btn-blue {
+  @apply bg-blue text-white;
+}
+@utility btn-ghost {
+  @apply bg-white border-blue-line text-blue hover:bg-blue-soft;
+}
+
+/* ===== Секції ===== */
+/* Вертикальні відступи секції */
+@utility section {
+  @apply py-10 md:py-14;
+}
+/* Обмеження ширини контенту по центру */
+@utility container-site {
+  @apply mx-auto max-w-[1120px] px-5;
+}
+/* Маленький синій підпис над заголовком секції */
+@utility eyebrow {
+  @apply text-xs font-extrabold uppercase tracking-[.14em] text-blue;
+}
+/* Заголовок секції із зеленою рискою під ним */
+@utility section-title {
+  @apply relative pb-3.5 text-[24px] md:text-[32px] leading-tight font-extrabold tracking-tight
+    after:absolute after:left-1/2 after:bottom-0 after:h-[3px] after:w-12 after:-translate-x-1/2 after:bg-green after:content-[''];
+}
+/* Іконка зі спрайту: <svg class="icon"><use href="#i-phone"/></svg> */
+@utility icon {
+  @apply shrink-0;
+}
