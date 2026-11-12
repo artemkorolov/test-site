@@ -1,0 +1,10 @@
+# Залежності (встановлюються командою npm install)
+node_modules/
+
+# css/style.css НЕ ігноруємо: він потрібен, щоб сторінка працювала на GitHub Pages без збирання
+
+# Системні й редакторські файли
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
