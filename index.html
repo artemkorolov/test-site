@@ -64,9 +64,8 @@
 
       <!-- Меню (комп'ютер) -->
       <nav aria-label="Головне меню" class="hidden gap-7 text-[15px] font-semibold md:flex">
-        <a href="#assistant" class="border-b-2 border-transparent py-1.5 text-muted no-underline hover:border-blue hover:text-ink">Асистент</a>
-        <a href="#plans" class="border-b-2 border-transparent py-1.5 text-muted no-underline hover:border-blue hover:text-ink">Доступні пакети</a>
-        <a href="#order" class="border-b-2 border-transparent py-1.5 text-muted no-underline hover:border-blue hover:text-ink">Отримати</a>
+               <a href="#assistant" class="border-b-2 border-transparent py-1.5 text-muted no-underline hover:border-blue hover:text-ink">Асистент</a>
+        <a href="#plans" class="border-b-2 border-transparent py-1.5 text-muted no-underline hover:border-blue hover:text-ink">Ціни</a>
         <a href="#faq" class="border-b-2 border-transparent py-1.5 text-muted no-underline hover:border-blue hover:text-ink">Питання</a>
       </nav>
 
@@ -83,13 +82,13 @@
       </button>
     </div>
 
-    <!-- Меню (телефон) -->
+       <!-- Меню (телефон) -->
     <nav id="mobile-menu" aria-label="Головне меню" class="hidden flex-col border-t border-line px-5 pt-1 pb-4 text-[17px] font-semibold group-[.open]:flex md:group-[.open]:hidden">
       <a href="#" class="flex items-center gap-2 border-b border-line py-3 font-bold text-green no-underline"><svg class="icon size-5" aria-hidden="true"><use href="#i-user"/></svg>УВІЙТИ</a>
       <a href="#assistant" class="border-b border-line py-3 no-underline">Асистент</a>
-      <a href="#plans" class="border-b border-line py-3 no-underline">Доступні плани</a>
-      <a href="#order" class="border-b border-line py-3 no-underline">Отримати асистента</a>
+      <a href="#plans" class="border-b border-line py-3 no-underline">Ціни</a>
       <a href="#faq" class="border-b border-line py-3 no-underline">Питання</a>
+      <a href="#order" class="btn btn-green mt-3">Отримати асистента</a>
     </nav>
   </header>
 
@@ -104,7 +103,7 @@
         <h1 class="max-w-[1040px] text-[28px] leading-[1.08] font-extrabold tracking-[-0.025em] md:text-[46px]">
           Електронний медичний асистент <span class="block whitespace-nowrap text-green md:inline">вашого здоров’я</span>
         </h1>
-        <p class="max-w-[600px] text-base text-muted md:text-lg">Асистент Elmeda організує консультації з нашими лікарями й доведе справу до результату.</p>
+        <p class="max-w-[600px] text-base text-muted md:text-lg">Асистент Elmeda організовує консультації з нашими лікарями й доведе справу до результату.</p>
         <div class="mt-1 flex w-full flex-col justify-center gap-2.5 md:mt-2 md:w-auto md:flex-row md:gap-3">
           <a href="#order" class="btn btn-green">Отримати асистента</a>
           <a href="tel:+380440000000" class="btn btn-ghost"><svg class="icon size-[18px]" aria-hidden="true"><use href="#i-phone"/></svg>Зателефонувати</a>
@@ -143,7 +142,7 @@
           </div>
           <div class="flex items-center gap-3 rounded-md border border-line bg-white p-3 shadow-[0_1px_2px_rgb(20_38_27/0.04)] transition hover:border-blue-line hover:shadow-card md:gap-4 md:p-4">
             <i class="flex size-10 shrink-0 items-center justify-center rounded-md bg-blue-soft text-blue md:size-12"><svg class="icon size-[22px]" aria-hidden="true"><use href="#i-care"/></svg></i>
-            <div><b class="block text-sm leading-tight font-bold md:text-base">Супроводжує далі</b><span class="hidden text-sm text-muted md:block">Допоможе з тим, чого бракує</span></div>
+            <div><b class="block text-sm leading-tight font-bold md:text-base">Постійний супровід</b><span class="hidden text-sm text-muted md:block">Допоможе з тим, чого бракує</span></div>
           </div>
         </div>
 
@@ -293,12 +292,12 @@
       <div class="container-site max-w-[780px]">
         <div class="mb-7 flex flex-col items-center gap-3 text-center md:mb-10">
           <h2 class="section-title">Часті питання</h2>
-          <p class="max-w-[560px] text-muted">Коротко про головне.</p>
+          <!-- <p class="max-w-[560px] text-muted">Коротко про головне.</p> -->
         </div>
         <div class="flex flex-col gap-2.5">
           <details class="group rounded-md border border-line bg-white px-4.5 py-4 transition open:shadow-card md:px-6 md:py-5">
             <summary class="flex cursor-pointer items-center justify-between gap-4 text-[15px] font-bold md:text-base">Хто такий асистент і чим він відрізняється від лікаря?<svg class="icon size-5 text-blue transition-transform group-open:rotate-45" aria-hidden="true"><use href="#i-plus"/></svg></summary>
-            <p class="mt-3 text-muted">Асистент — ваш координатор: на зв’язку з вами, підбирає лікаря, записує, нагадує й пояснює. Медичні рекомендації та висновки дають лікарі.</p>
+            <p class="mt-3 text-muted">Асистент — це ваш координатор, який з вами на зв’язку. Він підбирає лікаря, записує на консультацію та супроводжує на всіх етапах. А медичні рекомендації та висновки дають лікарі.</p>
           </details>
           <details class="group rounded-md border border-line bg-white px-4.5 py-4 transition open:shadow-card md:px-6 md:py-5">
             <summary class="flex cursor-pointer items-center justify-between gap-4 text-[15px] font-bold md:text-base">Що потрібно для консультації з лікарем?<svg class="icon size-5 text-blue transition-transform group-open:rotate-45" aria-hidden="true"><use href="#i-plus"/></svg></summary>
@@ -317,16 +316,16 @@
         Elmeda
       </a>
       <nav class="flex flex-wrap gap-x-6 gap-y-2.5">
-        <a href="#assistant" class="no-underline hover:text-white">Асистент</a>
+        <a href="#assistant" class="no-underline hover:text-white">Персональний асистент</a>
         <a href="#plans" class="no-underline hover:text-white">Доступні пакети</a>
-        <a href="#faq" class="no-underline hover:text-white">Питання</a>
+        <a href="#faq" class="no-underline hover:text-white">Часті питання</a>
         <a href="#" class="no-underline hover:text-white">Політика конфіденційності</a>
         <a href="#" class="no-underline hover:text-white">Умови користування</a>
         <a href="#" class="no-underline hover:text-white">Публічна оферта</a>
       </nav>
       <div class="flex w-full flex-wrap justify-between gap-2 border-t border-[#2B4034] pt-4.5 text-[13px] text-[#8FA197]">
         <span>© 2026 Elmeda · Електронний медичний асистент</span>
-        <span>Не для екстрених станів: 103 або 112</span>
+        <span>При екстренних випадках дзвоніть 103 або 112</span>
       </div>
     </div>
   </footer>
