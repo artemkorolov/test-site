@@ -14,7 +14,8 @@
 <html lang="uk">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#E3EEF9">
   <title>Elmeda — електронний медичний асистент</title>
   <meta name="description" content="Асистент Elmeda підбере лікаря, запише на консультацію й буде поруч до результату.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -44,6 +45,9 @@
       <symbol id="i-viber" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3c5 0 8.5 2.6 8.5 7.6S17 18.2 12 18.2c-.8 0-1.6-.1-2.3-.2L6.2 20.6v-3.7C4.4 15.6 3.5 13.4 3.5 10.6 3.5 5.6 7 3 12 3z"/><path fill="currentColor" d="M9.4 7.6c.3-.3.8-.3 1 0l.9 1.1c.2.3.2.7-.1 1l-.4.4c.4.9 1.1 1.6 2 2l.4-.4c.3-.3.7-.3 1-.1l1.1.9c.3.2.3.7 0 1l-.6.6c-.7.7-1.7.6-2.5.1a8.3 8.3 0 0 1-3-3c-.5-.8-.6-1.8.2-2.6z"/></symbol>
       <symbol id="i-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M21.4 4.3L2.9 11.4c-1 .4-1 1.2 0 1.5l4.6 1.4 1.8 5.5c.2.6.6.7 1.1.3l2.6-2.2 4.9 3.6c.7.4 1.2.2 1.4-.7l3.1-14.6c.3-1.2-.4-1.7-1-1.4z"/><path fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" d="M7.6 14.2l9.6-6.1-7.3 7"/></symbol>
       <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-family" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7.5" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 19.5c.6-3.4 2.8-5.2 5.5-5.2s4.9 1.8 5.5 5.2"/><path d="M14 15c.8-.6 1.8-.9 3-.9 2.2 0 3.9 1.4 4.5 4.4"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+      <symbol id="i-done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3 6-6.5"/></symbol>
     </defs>
   </svg>
 
@@ -60,15 +64,15 @@
       </div>
 
       <div class="relative mt-2 flex flex-col items-center gap-3">
-        <span class="flex size-18 items-center justify-center rounded-full bg-white shadow-card">
+        <span class="flex size-18 items-center justify-center rounded-[20px] bg-white shadow-card">
           <svg class="size-10" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#1F7A3A"/><path d="M16 8v16M8 16h16" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>
         </span>
         <h1 class="text-2xl leading-tight font-extrabold">Elmeda</h1>
         <p class="-mt-2 font-semibold text-green">Електронний медичний асистент</p>
-        <p class="max-w-[320px] text-[15px] text-muted">Лікар, запис і супровід — в одному місці.</p>
+        <p class="max-w-[320px] text-[15px] text-muted">Повний супровід — від лікаря до результату.</p>
         <div class="mt-2 flex w-full flex-col gap-2.5">
-          <a href="#plans" class="btn btn-green">Отримати асистента</a>
-          <a href="tel:+380440000000" class="btn btn-ghost"><svg class="icon size-[18px]" aria-hidden="true"><use href="#i-phone"/></svg>Зателефонувати</a>
+          <a href="#plans" class="btn btn-green rounded-xl active:scale-[.98]">Отримати асистента</a>
+          <a href="tel:+380440000000" class="btn btn-ghost rounded-xl active:scale-[.98]"><svg class="icon size-[18px]" aria-hidden="true"><use href="#i-phone"/></svg>Зателефонувати</a>
         </div>
       </div>
     </header>
@@ -81,16 +85,17 @@
         <h2 class="text-center text-xl font-extrabold">Оберіть асистента</h2>
 
         <!-- Варіант: Elmeda Базовий -->
-        <div class="group/plan rounded-md border-2 border-line bg-white transition has-checked:border-green has-checked:bg-green-soft/60">
+        <div class="group/plan rounded-xl border-2 border-line bg-white transition has-checked:border-green has-checked:bg-green-soft/60 has-checked:shadow-featured">
           <!-- Заголовок картки: натискання вибирає варіант -->
-          <label class="flex cursor-pointer items-center gap-3 p-4">
+          <label class="flex cursor-pointer items-center gap-3 p-4 select-none active:scale-[.99]">
             <input type="radio" name="plan" value="base" checked class="peer sr-only">
-            <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition peer-checked:border-[6px] peer-checked:border-green peer-focus-visible:outline-2 peer-focus-visible:outline-blue"></span>
+            <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-shield"/></svg></span>
             <span class="min-w-0 flex-1">
-              <b class="block leading-tight">Elmeda Базовий</b>
+              <b class="block text-[15px] leading-tight whitespace-nowrap">Elmeda Базовий</b>
               <span class="text-sm text-muted">Для однієї людини</span>
             </span>
             <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-xs text-muted">грн / міс</span></span>
+            <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition group-has-checked/plan:border-[6px] group-has-checked/plan:border-green"></span>
           </label>
 
           <!-- Розгортається лише в обраному варіанті: що входить + телефон + кнопка -->
@@ -102,22 +107,26 @@
                 <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Консультації з нашими лікарями</li>
                 <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Висновки й документи в кабінеті</li>
             </ul>
-            <input name="phone" type="tel" autocomplete="tel" placeholder="Ваш номер телефону" aria-label="Ваш номер телефону" class="min-h-13 w-full rounded-md border-[1.5px] border-line bg-white px-4 text-[17px] outline-none transition placeholder:text-[#9AA5A0] focus:border-green">
-            <button type="submit" class="btn btn-green min-h-13 w-full text-[17px]">Отримати</button>
+            <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
+              <span class="border-r border-line px-3.5 text-[17px] font-semibold text-muted">+380</span>
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-[17px] outline-none placeholder:text-[#9AA5A0]">
+            </label>
+            <button type="submit" class="btn btn-green min-h-13 w-full rounded-xl text-[17px] active:scale-[.98]">Отримати асистента</button>
           </form>
         </div>
 
         <!-- Варіант: Elmeda Розширений -->
-        <div class="group/plan rounded-md border-2 border-line bg-white transition has-checked:border-green has-checked:bg-green-soft/60">
+        <div class="group/plan rounded-xl border-2 border-line bg-white transition has-checked:border-green has-checked:bg-green-soft/60 has-checked:shadow-featured">
           <!-- Заголовок картки: натискання вибирає варіант -->
-          <label class="flex cursor-pointer items-center gap-3 p-4">
+          <label class="flex cursor-pointer items-center gap-3 p-4 select-none active:scale-[.99]">
             <input type="radio" name="plan" value="extended" class="peer sr-only">
-            <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition peer-checked:border-[6px] peer-checked:border-green peer-focus-visible:outline-2 peer-focus-visible:outline-blue"></span>
+            <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-family"/></svg></span>
             <span class="min-w-0 flex-1">
-              <b class="block leading-tight">Elmeda Розширений</b>
+              <b class="block text-[15px] leading-tight whitespace-nowrap">Elmeda Розширений</b>
               <span class="text-sm text-muted">До 3 членів родини</span>
             </span>
             <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-xs text-muted">грн / міс</span></span>
+            <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition group-has-checked/plan:border-[6px] group-has-checked/plan:border-green"></span>
           </label>
 
           <!-- Розгортається лише в обраному варіанті: що входить + телефон + кнопка -->
@@ -129,39 +138,52 @@
                 <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Асистент на зв’язку 24/7</li>
                 <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Створення плану здоров’я</li>
             </ul>
-            <input name="phone" type="tel" autocomplete="tel" placeholder="Ваш номер телефону" aria-label="Ваш номер телефону" class="min-h-13 w-full rounded-md border-[1.5px] border-line bg-white px-4 text-[17px] outline-none transition placeholder:text-[#9AA5A0] focus:border-green">
-            <button type="submit" class="btn btn-green min-h-13 w-full text-[17px]">Отримати</button>
+            <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
+              <span class="border-r border-line px-3.5 text-[17px] font-semibold text-muted">+380</span>
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-[17px] outline-none placeholder:text-[#9AA5A0]">
+            </label>
+            <button type="submit" class="btn btn-green min-h-13 w-full rounded-xl text-[17px] active:scale-[.98]">Отримати асистента</button>
           </form>
         </div>
 
-        <p class="text-center text-xs text-muted">Ми передзвонимо й усе налаштуємо. Натискаючи кнопку, ви погоджуєтеся з <a href="#" class="underline">Умовами</a>.</p>
+        <!-- Підтвердження після натискання (поки макет: показує js/main.js) -->
+        <div id="thanks" class="hidden flex-col items-center gap-2 rounded-xl border-2 border-green bg-green-soft p-6 text-center">
+          <svg class="icon size-12 text-green" aria-hidden="true"><use href="#i-done"/></svg>
+          <b class="text-lg">Дякуємо!</b>
+          <p class="text-sm text-muted">Асистент передзвонить найближчим часом.</p>
+        </div>
+
+        <p id="consent" class="text-center text-xs text-muted">Ми передзвонимо й усе налаштуємо. Натискаючи кнопку, ви погоджуєтеся з <a href="#" class="underline">Умовами</a>.</p>
       </section>
 
       <!-- ===== 3. Маєте питання? Зв'язатися ===== -->
       <section class="flex flex-col items-center gap-3">
         <h2 class="font-bold">Маєте питання? Напишіть нам</h2>
-        <div class="flex gap-3">
-          <a href="viber://chat?number=%2B380440000000" aria-label="Viber" class="flex size-14 items-center justify-center rounded-md border border-line bg-white transition hover:bg-page"><svg class="icon size-6 text-viber" aria-hidden="true"><use href="#i-viber"/></svg></a>
-          <a href="https://t.me/[username]" aria-label="Telegram" class="flex size-14 items-center justify-center rounded-md border border-line bg-white transition hover:bg-page"><svg class="icon size-6 text-telegram" aria-hidden="true"><use href="#i-telegram"/></svg></a>
-          <a href="tel:+380440000000" aria-label="Зателефонувати" class="flex size-14 items-center justify-center rounded-md border border-line bg-white transition hover:bg-page"><svg class="icon size-6 text-green" aria-hidden="true"><use href="#i-phone"/></svg></a>
+        <div class="flex w-full gap-2.5">
+          <a href="viber://chat?number=%2B380440000000" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3 text-xs font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-viber" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+          <a href="https://t.me/[username]" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3 text-xs font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-telegram" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a>
+          <a href="tel:+380440000000" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3 text-xs font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-green" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</a>
         </div>
         <p class="text-xs text-muted">Консультація щодо сервісу — безкоштовно</p>
       </section>
 
       <!-- ===== 4. Коротко ===== -->
       <section class="flex flex-col gap-2">
-        <details class="group rounded-md border border-line px-4 py-3.5">
-          <summary class="flex cursor-pointer items-center justify-between gap-3 text-[15px] font-bold">Хто такий асистент?<svg class="icon size-5 text-blue transition-transform group-open:rotate-45" aria-hidden="true"><use href="#i-plus"/></svg></summary>
-          <p class="mt-2.5 text-sm text-muted">Ваш координатор: на зв’язку з вами, підбирає лікаря, записує й супроводжує. Консультують і дають рекомендації наші лікарі.</p>
-        </details>
-        <details class="group rounded-md border border-line px-4 py-3.5">
-          <summary class="flex cursor-pointer items-center justify-between gap-3 text-[15px] font-bold">Що потрібно для консультації?<svg class="icon size-5 text-blue transition-transform group-open:rotate-45" aria-hidden="true"><use href="#i-plus"/></svg></summary>
-          <p class="mt-2.5 text-sm text-muted">Телефон або комп’ютер з камерою та інтернет. Нічого встановлювати не треба.</p>
-        </details>
+        <h2 class="px-1 text-sm font-bold text-muted">Часті питання</h2>
+        <div class="overflow-hidden rounded-xl border border-line bg-white">
+          <details class="group border-line [&:not(:last-child)]:border-b">
+            <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-[15px] font-semibold">Хто такий асистент?<svg class="icon size-5 text-muted transition-transform group-open:rotate-90" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <p class="px-4 pb-4 text-sm text-muted">Ваш координатор: на зв’язку з вами, підбирає лікаря, записує й супроводжує. Консультують і дають рекомендації наші лікарі.</p>
+          </details>
+          <details class="group border-line [&:not(:last-child)]:border-b">
+            <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-[15px] font-semibold">Що потрібно для консультації?<svg class="icon size-5 text-muted transition-transform group-open:rotate-90" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <p class="px-4 pb-4 text-sm text-muted">Телефон або комп’ютер з камерою та інтернет. Нічого встановлювати не треба.</p>
+          </details>
+        </div>
       </section>
 
       <!-- Попередження 103 -->
-      <p class="rounded-md bg-warn-soft px-4 py-3 text-center text-xs font-semibold text-warn">
+      <p class="rounded-xl bg-warn-soft px-4 py-3 text-center text-xs font-semibold text-warn">
         <svg class="icon mr-1 inline-block size-4 align-[-3px]" aria-hidden="true"><use href="#i-alert"/></svg>Не для екстрених випадків. Екстрена допомога — <b>103</b> або <b>112</b>
       </p>
     </div>
