@@ -3,12 +3,12 @@
   Файл: index.html
   Призначення: головна сторінка сервісу «Електронний медичний асистент» — проста версія, спершу для телефона
   Будова (одна колонка, як на телефоні; на комп'ютері — картка по центру):
-    1) шапка: логотип, назва, один рядок про сервіс, «Увійти», кнопки «Отримати асистента» і «Зателефонувати»
+    1) шапка: логотип, назва з підписом, «Увійти», кнопки «Отримати асистента» і «Зателефонувати»
     2) оберіть асистента: натискання на варіант розгортає його — що входить, поле телефону й кнопка «Отримати асистента»
     3) маєте питання: Viber · Telegram · Дзвінок
-    4) коротко: часті питання, 103, документи
+    4) коротко: «Хто такий асистент?», 103, документи
   Стилі: класи Tailwind; кольори й готові класи — у src/input.css. Після зміни класів: npm run build
-  Скрипт: js/main.js — поки лише не дає формі відправлятись (макет)
+  Скрипт: js/main.js — після вибору плавно показує картку; «Отримати» перевіряє номер і показує «Дякуємо!» (без відправки — макет)
   Заглушки: телефон +380 44 000 00 00, ціни, Telegram [username], посилання «Увійти» та документів
 -->
 <html lang="uk">
@@ -24,27 +24,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-[#E8EEF4] md:py-8">
+<body class="bg-[#E8EEF4] text-[17px] touch-manipulation md:py-8">
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 2.8v5.9c0 4.9-3.2 8.4-7.5 9.7-4.3-1.3-7.5-4.8-7.5-9.7V5.6L12 2.8z"/><path d="M12 8.5v6.5M8.75 11.75h6.5"/></symbol>
       <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
       <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
-      <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
-      <symbol id="i-doctor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16.5 9.5l1.8 1.8 3.2-3.6"/></symbol>
-      <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 14.5l2 2 4-4"/></symbol>
-      <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10.5l5-3v9l-5-3"/></symbol>
-      <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6V3z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
-      <symbol id="i-care" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
-      <symbol id="i-headset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14h3v5H5.5A1.5 1.5 0 0 1 4 17.5V14z"/><path d="M20 14h-3v5h1.5a1.5 1.5 0 0 0 1.5-1.5V14z"/><path d="M18.5 19c0 1.4-1.6 2.3-4.5 2.3"/></symbol>
       <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.8 3.8-5.8 7-5.8s6 2 7 5.8"/></symbol>
-      <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
       <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.5"/></symbol>
-      <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
       <symbol id="i-viber" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3c5 0 8.5 2.6 8.5 7.6S17 18.2 12 18.2c-.8 0-1.6-.1-2.3-.2L6.2 20.6v-3.7C4.4 15.6 3.5 13.4 3.5 10.6 3.5 5.6 7 3 12 3z"/><path fill="currentColor" d="M9.4 7.6c.3-.3.8-.3 1 0l.9 1.1c.2.3.2.7-.1 1l-.4.4c.4.9 1.1 1.6 2 2l.4-.4c.3-.3.7-.3 1-.1l1.1.9c.3.2.3.7 0 1l-.6.6c-.7.7-1.7.6-2.5.1a8.3 8.3 0 0 1-3-3c-.5-.8-.6-1.8.2-2.6z"/></symbol>
       <symbol id="i-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M21.4 4.3L2.9 11.4c-1 .4-1 1.2 0 1.5l4.6 1.4 1.8 5.5c.2.6.6.7 1.1.3l2.6-2.2 4.9 3.6c.7.4 1.2.2 1.4-.7l3.1-14.6c.3-1.2-.4-1.7-1-1.4z"/><path fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" d="M7.6 14.2l9.6-6.1-7.3 7"/></symbol>
-      <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
       <symbol id="i-family" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7.5" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 19.5c.6-3.4 2.8-5.2 5.5-5.2s4.9 1.8 5.5 5.2"/><path d="M14 15c.8-.6 1.8-.9 3-.9 2.2 0 3.9 1.4 4.5 4.4"/></symbol>
       <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
       <symbol id="i-done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3 6-6.5"/></symbol>
@@ -54,142 +44,146 @@
   <main class="mx-auto min-h-svh max-w-[460px] overflow-hidden bg-white md:min-h-0 md:rounded-md md:shadow-card">
 
     <!-- ===== 1. Шапка: назва, один рядок про сервіс, дві головні дії ===== -->
-    <header class="relative overflow-hidden bg-linear-to-b from-hero-from to-hero-to px-6 pt-5 pb-14 text-center">
+    <header class="relative overflow-hidden bg-linear-to-b from-hero-from to-hero-to px-6 pt-5 pb-20 text-center">
       <svg class="pointer-events-none absolute -top-10 -right-16 size-56 text-blue opacity-[.08]" aria-hidden="true"><use href="#i-shield"/></svg>
       <svg class="pointer-events-none absolute -bottom-16 -left-20 size-48 text-green opacity-[.08]" aria-hidden="true"><use href="#i-shield"/></svg>
 
       <!-- «Увійти» веде в кабінет (Next.js) -->
       <div class="relative flex justify-end">
-        <a href="#" class="inline-flex items-center gap-1.5 rounded-full border border-blue-line bg-white px-3 py-1.5 text-sm font-bold text-green no-underline hover:bg-blue-soft"><svg class="icon size-4" aria-hidden="true"><use href="#i-user"/></svg>Увійти</a>
+        <a href="#" class="inline-flex items-center gap-1.5 rounded-full border border-blue-line bg-white px-3.5 py-2 text-[15px] font-bold text-green no-underline hover:bg-blue-soft"><svg class="icon size-4" aria-hidden="true"><use href="#i-user"/></svg>Увійти</a>
       </div>
 
-      <div class="relative mt-2 flex flex-col items-center gap-3">
-        <span class="flex size-18 items-center justify-center rounded-[20px] bg-white shadow-card">
-          <svg class="size-10" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#1F7A3A"/><path d="M16 8v16M8 16h16" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>
-        </span>
-        <h1 class="text-2xl leading-tight font-extrabold">Elmeda</h1>
-        <p class="-mt-2 font-semibold text-green">Електронний медичний асистент</p>
-        <p class="max-w-[320px] text-[15px] text-muted">Повний супровід — від лікаря до результату.</p>
-        <div class="mt-2 flex w-full flex-col gap-2.5">
-          <a href="#plans" class="btn btn-green rounded-xl active:scale-[.98]">Отримати асистента</a>
-          <a href="tel:+380440000000" class="btn btn-ghost rounded-xl active:scale-[.98]"><svg class="icon size-[18px]" aria-hidden="true"><use href="#i-phone"/></svg>Зателефонувати</a>
+      <div class="relative mt-4 flex flex-col items-center gap-3">
+        <!-- Логотип: контурний щит з «е»-чатом -->
+        <svg class="size-24 drop-shadow-[0_6px_14px_rgb(31_122_58/0.18)]" viewBox="0 0 64 64" role="img" aria-label="Elmeda">
+          <defs><linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34A853"/><stop offset="1" stop-color="#17602D"/></linearGradient></defs>
+          <!-- контурний щит -->
+          <path d="M32 4.5 53.5 12v17.5c0 14.2-9.2 24.4-21.5 29.5C19.7 53.9 10.5 43.7 10.5 29.5V12L32 4.5z" fill="#fff" stroke="url(#logo-g)" stroke-width="4.2" stroke-linejoin="round"/>
+          <!-- «е»-чат: бульбашка з хвостиком -->
+          <path d="M32 18.5a11.5 11.5 0 1 1-8.3 19.5l-4 1.6 1.4-4.2A11.5 11.5 0 0 1 32 18.5z" fill="none" stroke="url(#logo-g)" stroke-width="3.4" stroke-linejoin="round"/>
+          <!-- пульс -->
+          <path d="M24.5 30h3.5l2.3-4.6 3.2 9.2 2.3-4.6h3.7" fill="none" stroke="#1F7A3A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- помаранчева крапка -->
+          <circle cx="43.5" cy="39.5" r="3.4" fill="#E07A1F"/>
+        </svg>
+        <h1 class="text-[28px] leading-tight font-extrabold tracking-tight text-green-dark">elmeda<span class="text-[#E07A1F]">.</span></h1>
+        <p class="-mt-2 text-[17px] font-semibold text-green">Електронний медичний асистент</p>
+        <div class="mt-7 flex w-full flex-col gap-3.5">
+          <a href="#plans" class="btn btn-green min-h-14 rounded-xl text-[18px] active:scale-[.98]">Отримати асистента</a>
+          <a href="tel:+380440000000" class="btn btn-ghost min-h-14 rounded-xl text-[18px] active:scale-[.98]"><svg class="icon size-5" aria-hidden="true"><use href="#i-phone"/></svg>Зателефонувати</a>
         </div>
       </div>
     </header>
 
     <!-- Біла частина «наїжджає» на синю шапку -->
-    <div class="relative -mt-8 flex flex-col gap-8 rounded-t-[22px] bg-white px-5 pt-7 pb-8">
+    <div class="relative -mt-10 flex flex-col gap-8 rounded-t-[22px] bg-white px-5 pt-7 pb-8">
 
       <!-- ===== 2. Оберіть асистента: у вибраній картці — що входить, телефон і кнопка ===== -->
-      <section id="plans" class="flex scroll-mt-4 flex-col gap-3">
-        <h2 class="text-center text-xl font-extrabold">Оберіть асистента</h2>
+      <section id="plans" class="flex scroll-mt-4 flex-col gap-4">
+        <h2 class="text-center text-[22px] font-extrabold">Оберіть асистента</h2>
 
         <!-- Варіант: Elmeda Базовий -->
-        <div class="group/plan rounded-xl border-2 border-line bg-white transition has-checked:border-green has-checked:bg-green-soft/60 has-checked:shadow-featured">
+        <div class="group/plan overflow-hidden rounded-2xl border-2 border-transparent bg-white shadow-[0_2px_12px_rgb(20_38_27/0.08)] transition has-checked:border-green has-checked:shadow-featured">
           <!-- Заголовок картки: натискання вибирає варіант -->
-          <label class="flex cursor-pointer items-center gap-3 p-4 select-none active:scale-[.99]">
+          <label class="flex cursor-pointer items-center gap-3 px-4 py-4 transition select-none group-has-checked/plan:bg-green-soft">
             <input type="radio" name="plan" value="base" checked class="peer sr-only">
-            <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-shield"/></svg></span>
+            <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-shield"/></svg></span>
             <span class="min-w-0 flex-1">
-              <b class="block text-[15px] leading-tight whitespace-nowrap">Elmeda Базовий</b>
-              <span class="text-sm text-muted">Для однієї людини</span>
+              <b class="block text-[17px] leading-tight">Elmeda Базовий</b>
             </span>
-            <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-xs text-muted">грн / міс</span></span>
+            <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-[13px] text-muted">грн / міс</span></span>
             <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition group-has-checked/plan:border-[6px] group-has-checked/plan:border-green"></span>
           </label>
 
           <!-- Розгортається лише в обраному варіанті: що входить + телефон + кнопка -->
-          <form class="order-form hidden flex-col gap-3.5 border-t border-green-line px-4 pt-3.5 pb-4 group-has-checked/plan:flex" novalidate>
+          <form class="order-form hidden flex-col gap-4 px-3.5 pt-4 pb-4 group-has-checked/plan:flex" novalidate>
             <input type="hidden" name="plan" value="base">
-            <ul class="flex flex-col gap-2 text-sm">
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Асистент на зв’язку в робочий час</li>
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Підбір лікаря і запис</li>
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Консультації з нашими лікарями</li>
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Висновки й документи в кабінеті</li>
+            <ul class="divide-y divide-line rounded-xl bg-page px-3 text-[15px]">
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Для однієї людини</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Асистент на зв’язку в робочий час</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Підбір лікаря і запис</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Консультації з нашими лікарями</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Висновки й документи в кабінеті</li>
             </ul>
             <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
-              <span class="border-r border-line px-3.5 text-[17px] font-semibold text-muted">+380</span>
-              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-[17px] outline-none placeholder:text-[#9AA5A0]">
+              <span class="border-r border-line px-3.5 text-[18px] font-semibold text-muted">+380</span>
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3.5 text-[18px] outline-none placeholder:text-[#9AA5A0]">
             </label>
-            <button type="submit" class="btn btn-green min-h-13 w-full rounded-xl text-[17px] active:scale-[.98]">Отримати асистента</button>
+            <button type="submit" class="btn btn-green min-h-14 w-full rounded-xl text-[18px] active:scale-[.98]">Отримати</button>
           </form>
         </div>
 
         <!-- Варіант: Elmeda Розширений -->
-        <div class="group/plan rounded-xl border-2 border-line bg-white transition has-checked:border-green has-checked:bg-green-soft/60 has-checked:shadow-featured">
+        <div class="group/plan overflow-hidden rounded-2xl border-2 border-transparent bg-white shadow-[0_2px_12px_rgb(20_38_27/0.08)] transition has-checked:border-green has-checked:shadow-featured">
           <!-- Заголовок картки: натискання вибирає варіант -->
-          <label class="flex cursor-pointer items-center gap-3 p-4 select-none active:scale-[.99]">
+          <label class="flex cursor-pointer items-center gap-3 px-4 py-4 transition select-none group-has-checked/plan:bg-green-soft">
             <input type="radio" name="plan" value="extended" class="peer sr-only">
-            <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-family"/></svg></span>
+            <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-family"/></svg></span>
             <span class="min-w-0 flex-1">
-              <b class="block text-[15px] leading-tight whitespace-nowrap">Elmeda Розширений</b>
-              <span class="text-sm text-muted">До 3 членів родини</span>
+              <b class="block text-[17px] leading-tight">Elmeda Розширений</b>
             </span>
-            <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-xs text-muted">грн / міс</span></span>
+            <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-[13px] text-muted">грн / міс</span></span>
             <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition group-has-checked/plan:border-[6px] group-has-checked/plan:border-green"></span>
           </label>
 
           <!-- Розгортається лише в обраному варіанті: що входить + телефон + кнопка -->
-          <form class="order-form hidden flex-col gap-3.5 border-t border-green-line px-4 pt-3.5 pb-4 group-has-checked/plan:flex" novalidate>
+          <form class="order-form hidden flex-col gap-4 px-3.5 pt-4 pb-4 group-has-checked/plan:flex" novalidate>
             <input type="hidden" name="plan" value="extended">
-            <ul class="flex flex-col gap-2 text-sm">
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Усе з «Базового»</li>
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Розшифровка аналізів</li>
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Асистент на зв’язку 24/7</li>
-                <li class="flex items-start gap-2.5"><span class="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-green-soft text-green"><svg class="icon size-3.5" aria-hidden="true"><use href="#i-check"/></svg></span>Створення плану здоров’я</li>
+            <ul class="divide-y divide-line rounded-xl bg-page px-3 text-[15px]">
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>До 3 членів родини</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Усе з «Базового»</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Розшифровка аналізів</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Асистент на зв’язку 24/7</li>
+                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Створення плану здоров’я</li>
             </ul>
             <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
-              <span class="border-r border-line px-3.5 text-[17px] font-semibold text-muted">+380</span>
-              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-[17px] outline-none placeholder:text-[#9AA5A0]">
+              <span class="border-r border-line px-3.5 text-[18px] font-semibold text-muted">+380</span>
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3.5 text-[18px] outline-none placeholder:text-[#9AA5A0]">
             </label>
-            <button type="submit" class="btn btn-green min-h-13 w-full rounded-xl text-[17px] active:scale-[.98]">Отримати асистента</button>
+            <button type="submit" class="btn btn-green min-h-14 w-full rounded-xl text-[18px] active:scale-[.98]">Отримати</button>
           </form>
         </div>
 
         <!-- Підтвердження після натискання (поки макет: показує js/main.js) -->
         <div id="thanks" class="hidden flex-col items-center gap-2 rounded-xl border-2 border-green bg-green-soft p-6 text-center">
           <svg class="icon size-12 text-green" aria-hidden="true"><use href="#i-done"/></svg>
-          <b class="text-lg">Дякуємо!</b>
-          <p class="text-sm text-muted">Асистент передзвонить найближчим часом.</p>
+          <b class="text-xl">Дякуємо!</b>
+          <p class="text-base text-muted">Асистент передзвонить найближчим часом.</p>
         </div>
 
-        <p id="consent" class="text-center text-xs text-muted">Ми передзвонимо й усе налаштуємо. Натискаючи кнопку, ви погоджуєтеся з <a href="#" class="underline">Умовами</a>.</p>
+        <p id="consent" class="text-center text-sm text-muted">Ми передзвонимо й усе налаштуємо. Натискаючи кнопку, ви погоджуєтеся з <a href="#" class="underline">Умовами</a>.</p>
       </section>
 
       <!-- ===== 3. Маєте питання? Зв'язатися ===== -->
       <section class="flex flex-col items-center gap-3">
-        <h2 class="font-bold">Маєте питання? Напишіть нам</h2>
+        <h2 class="text-lg font-bold">Маєте питання? Напишіть нам</h2>
         <div class="flex w-full gap-2.5">
-          <a href="viber://chat?number=%2B380440000000" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3 text-xs font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-viber" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
-          <a href="https://t.me/[username]" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3 text-xs font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-telegram" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a>
-          <a href="tel:+380440000000" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3 text-xs font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-green" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</a>
+          <a href="viber://chat?number=%2B380440000000" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3.5 text-sm font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-viber" aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+          <a href="https://t.me/[username]" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3.5 text-sm font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-telegram" aria-hidden="true"><use href="#i-telegram"/></svg>Telegram</a>
+          <a href="tel:+380440000000" class="flex flex-1 flex-col items-center gap-1.5 rounded-xl border border-line bg-white py-3.5 text-sm font-semibold text-ink no-underline transition hover:bg-page active:scale-[.97]"><svg class="icon size-7 text-green" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</a>
         </div>
-        <p class="text-xs text-muted">Консультація щодо сервісу — безкоштовно</p>
+        <p class="text-sm text-muted">Консультація щодо сервісу — безкоштовно</p>
       </section>
 
       <!-- ===== 4. Коротко ===== -->
       <section class="flex flex-col gap-2">
-        <h2 class="px-1 text-sm font-bold text-muted">Часті питання</h2>
+        <h2 class="px-1 text-[15px] font-bold text-muted">Питання</h2>
         <div class="overflow-hidden rounded-xl border border-line bg-white">
           <details class="group border-line [&:not(:last-child)]:border-b">
-            <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-[15px] font-semibold">Хто такий асистент?<svg class="icon size-5 text-muted transition-transform group-open:rotate-90" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-            <p class="px-4 pb-4 text-sm text-muted">Ваш координатор: на зв’язку з вами, підбирає лікаря, записує й супроводжує. Консультують і дають рекомендації наші лікарі.</p>
-          </details>
-          <details class="group border-line [&:not(:last-child)]:border-b">
-            <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-[15px] font-semibold">Що потрібно для консультації?<svg class="icon size-5 text-muted transition-transform group-open:rotate-90" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
-            <p class="px-4 pb-4 text-sm text-muted">Телефон або комп’ютер з камерою та інтернет. Нічого встановлювати не треба.</p>
+            <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-4 text-[17px] font-semibold">Хто такий асистент?<svg class="icon size-5 text-muted transition-transform group-open:rotate-90" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <p class="px-4 pb-4 text-base text-muted">Ваш координатор: на зв’язку з вами, підбирає лікаря, записує й супроводжує. Консультують і дають рекомендації наші лікарі.</p>
           </details>
         </div>
       </section>
 
       <!-- Попередження 103 -->
-      <p class="rounded-xl bg-warn-soft px-4 py-3 text-center text-xs font-semibold text-warn">
+      <p class="rounded-xl bg-warn-soft px-4 py-3.5 text-center text-sm font-semibold text-warn">
         <svg class="icon mr-1 inline-block size-4 align-[-3px]" aria-hidden="true"><use href="#i-alert"/></svg>Не для екстрених випадків. Екстрена допомога — <b>103</b> або <b>112</b>
       </p>
     </div>
 
     <!-- ===== Футер ===== -->
-    <footer class="border-t border-line px-5 py-5 text-center text-xs text-muted">
+    <footer class="border-t border-line px-5 py-6 text-center text-sm text-muted">
       <nav class="flex flex-wrap justify-center gap-x-4 gap-y-1.5">
         <a href="#" class="hover:text-ink">Політика конфіденційності</a>
         <a href="#" class="hover:text-ink">Умови</a>
