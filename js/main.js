@@ -6,12 +6,10 @@
   Статус: макет
 */
 
-// Вибрали варіант → курсор у поле телефону цієї картки
+// Вибрали варіант → плавно показати розгорнуту картку повністю (без клавіатури)
 document.querySelectorAll('input[type="radio"][name="plan"]').forEach((radio) =>
   radio.addEventListener('change', () => {
-    const card = radio.closest('.group\\/plan');
-    card.querySelector('input[name="phone"]').focus({ preventScroll: true });
-    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    radio.closest('.group\\/plan').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }));
 
 // «Отримати асистента» → якщо номер є, показати «Дякуємо!»
