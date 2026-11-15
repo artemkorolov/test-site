@@ -4,11 +4,12 @@
   Призначення: головна сторінка сервісу «Електронний медичний асистент» — проста версія, спершу для телефона
   Будова (одна колонка, як на телефоні; на комп'ютері — картка по центру):
     1) шапка: логотип, назва з підписом, «Увійти», кнопки «Отримати асистента» і «Зателефонувати»
-    2) оберіть асистента: натискання на варіант розгортає його — що входить, поле телефону й кнопка «Отримати асистента»
-    3) маєте питання: Viber · Telegram · Дзвінок
-    4) коротко: «Хто такий асистент?», 103, документи
+    2) оберіть асистента: картки поруч, гортаються свайпом (видно, що входить, легко порівняти); «Обрати» на картці
+    3) телефон: одна форма — показує обраного асистента, поле +380 і «Отримати асистента»
+    4) маєте питання: Viber · Telegram · Дзвінок
+    5) коротко: «Хто такий асистент?», 103, документи
   Стилі: класи Tailwind; кольори й готові класи — у src/input.css. Після зміни класів: npm run build
-  Скрипт: js/main.js — після вибору плавно показує картку; «Отримати» перевіряє номер і показує «Дякуємо!» (без відправки — макет)
+  Скрипт: js/main.js — крапки під картками; «Обрати» → назва у формі; «Отримати» перевіряє вибір і номер, показує «Дякуємо!» (макет)
   Заглушки: телефон +380 44 000 00 00, ціни, Telegram [username], посилання «Увійти» та документів
 -->
 <html lang="uk">
@@ -76,85 +77,88 @@
     </header>
 
     <!-- Біла частина «наїжджає» на синю шапку -->
-    <div class="relative -mt-10 flex flex-col gap-8 rounded-t-[22px] bg-white px-5 pt-7 pb-8">
+    <div class="relative -mt-10 flex flex-col gap-8 overflow-hidden rounded-t-[22px] bg-white px-5 pt-0 pb-8">
 
-      <!-- ===== 2. Оберіть асистента: у вибраній картці — що входить, телефон і кнопка ===== -->
-      <section id="plans" class="flex scroll-mt-4 flex-col gap-4">
+      <!-- ===== 2. Оберіть асистента: картки поруч, гортаються свайпом — легко порівняти ===== -->
+      <!-- Смуга на всю ширину: вибір асистента й форма разом -->
+      <div class="-mx-5 flex flex-col gap-5 bg-[#EDF2F7] px-5 py-7">
+      <section id="plans" class="flex scroll-mt-4 flex-col gap-3">
         <h2 class="text-center text-[22px] font-extrabold">Оберіть асистента</h2>
+        <p class="-mt-1 text-center text-sm text-muted">Гортайте, щоб порівняти →</p>
 
-        <!-- Варіант: Elmeda Базовий -->
-        <div class="group/plan overflow-hidden rounded-2xl border-2 border-transparent bg-white shadow-[0_2px_12px_rgb(20_38_27/0.08)] transition has-checked:border-green has-checked:shadow-featured">
-          <!-- Заголовок картки: натискання вибирає варіант -->
-          <label class="flex cursor-pointer items-center gap-3 px-4 py-4 transition select-none group-has-checked/plan:bg-green-soft">
-            <input type="radio" name="plan" value="base" class="peer sr-only">
-            <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-shield"/></svg></span>
-            <span class="min-w-0 flex-1">
-              <b class="block text-[17px] leading-tight">Elmeda Базовий</b>
-            </span>
-            <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-[13px] text-muted">грн / міс</span></span>
-            <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition group-has-checked/plan:border-[6px] group-has-checked/plan:border-green"></span>
-          </label>
-
-          <!-- Розгортається лише в обраному варіанті: що входить + телефон + кнопка -->
-          <form class="order-form hidden flex-col gap-4 px-3.5 pt-4 pb-4 group-has-checked/plan:flex" novalidate>
-            <input type="hidden" name="plan" value="base">
-            <ul class="divide-y divide-line rounded-xl bg-page px-3 text-[15px]">
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Для однієї людини</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Асистент на зв’язку в робочий час</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Підбір лікаря і запис</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Консультації з нашими лікарями</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Висновки й документи в кабінеті</li>
+        <div id="plans-list" class="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pt-1 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <!-- Варіант: Elmeda Базовий -->
+          <article class="group/plan flex shrink-0 basis-[86%] snap-center flex-col gap-4 rounded-2xl border-2 border-white bg-white p-4 shadow-[0_6px_20px_rgb(20_38_27/0.10)] transition has-checked:border-green has-checked:shadow-featured">
+            <div class="flex items-center gap-3">
+              <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white"><svg class="icon size-6" aria-hidden="true"><use href="#i-shield"/></svg></span>
+              <b class="text-[17px] leading-tight">Elmeda Базовий</b>
+            </div>
+            <p class="flex items-baseline gap-1.5"><b class="text-[28px] leading-none font-extrabold tracking-tight">[Ціна]</b><span class="text-muted">грн / міс</span></p>
+            <ul class="divide-y divide-line rounded-xl bg-[#F6F9FB] px-3 text-[15px]">
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Для однієї людини</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Асистент на зв’язку в робочий час</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Підбір лікаря і запис</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Консультації з нашими лікарями</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Висновки й документи в кабінеті</li>
             </ul>
-            <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
-              <span class="border-r border-line px-3.5 text-[18px] font-semibold text-muted">+380</span>
-              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3.5 text-[18px] outline-none placeholder:text-[#9AA5A0]">
+            <!-- Кнопка вибору: це radio, тому обраним може бути лише один варіант -->
+            <label class="btn btn-ghost mt-auto min-h-13 w-full cursor-pointer rounded-xl text-[17px] select-none active:scale-[.98] has-checked:border-green has-checked:bg-green has-checked:text-white">
+              <input type="radio" name="plan" value="base" data-name="Elmeda Базовий" class="sr-only">
+              <span class="group-has-checked/plan:hidden">Обрати</span>
+              <span class="hidden items-center gap-1.5 group-has-checked/plan:inline-flex"><svg class="icon size-5" aria-hidden="true"><use href="#i-check"/></svg>Обрано</span>
             </label>
-            <button type="submit" class="btn btn-green min-h-14 w-full rounded-xl text-[18px] active:scale-[.98]">Отримати</button>
-          </form>
-        </div>
+          </article>
 
-        <!-- Варіант: Elmeda Розширений -->
-        <div class="group/plan overflow-hidden rounded-2xl border-2 border-transparent bg-white shadow-[0_2px_12px_rgb(20_38_27/0.08)] transition has-checked:border-green has-checked:shadow-featured">
-          <!-- Заголовок картки: натискання вибирає варіант -->
-          <label class="flex cursor-pointer items-center gap-3 px-4 py-4 transition select-none group-has-checked/plan:bg-green-soft">
-            <input type="radio" name="plan" value="extended" class="peer sr-only">
-            <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-blue"><svg class="icon size-6" aria-hidden="true"><use href="#i-family"/></svg></span>
-            <span class="min-w-0 flex-1">
-              <b class="block text-[17px] leading-tight">Elmeda Розширений</b>
-            </span>
-            <span class="text-right leading-tight"><b class="text-lg">[Ціна]</b><span class="block text-[13px] text-muted">грн / міс</span></span>
-            <span class="size-5 shrink-0 rounded-full border-2 border-line bg-white transition group-has-checked/plan:border-[6px] group-has-checked/plan:border-green"></span>
-          </label>
-
-          <!-- Розгортається лише в обраному варіанті: що входить + телефон + кнопка -->
-          <form class="order-form hidden flex-col gap-4 px-3.5 pt-4 pb-4 group-has-checked/plan:flex" novalidate>
-            <input type="hidden" name="plan" value="extended">
-            <ul class="divide-y divide-line rounded-xl bg-page px-3 text-[15px]">
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>До 3 членів родини</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Усе з «Базового»</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Розшифровка аналізів</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Асистент на зв’язку 24/7</li>
-                <li class="flex items-center gap-2 py-3 leading-snug"><svg class="icon size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Створення плану здоров’я</li>
+          <!-- Варіант: Elmeda Розширений -->
+          <article class="group/plan flex shrink-0 basis-[86%] snap-center flex-col gap-4 rounded-2xl border-2 border-white bg-white p-4 shadow-[0_6px_20px_rgb(20_38_27/0.10)] transition has-checked:border-green has-checked:shadow-featured">
+            <div class="flex items-center gap-3">
+              <span class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-blue-soft text-blue transition group-has-checked/plan:bg-green group-has-checked/plan:text-white"><svg class="icon size-6" aria-hidden="true"><use href="#i-family"/></svg></span>
+              <b class="text-[17px] leading-tight">Elmeda Розширений</b>
+            </div>
+            <p class="flex items-baseline gap-1.5"><b class="text-[28px] leading-none font-extrabold tracking-tight">[Ціна]</b><span class="text-muted">грн / міс</span></p>
+            <ul class="divide-y divide-line rounded-xl bg-[#F6F9FB] px-3 text-[15px]">
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>До 3 членів родини</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Усе з «Базового»</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Розшифровка аналізів</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Асистент на зв’язку 24/7</li>
+              <li class="flex items-start gap-2 py-2.5 leading-snug"><svg class="icon mt-0.5 size-[18px] text-green" aria-hidden="true"><use href="#i-check"/></svg>Створення плану здоров’я</li>
             </ul>
-            <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
-              <span class="border-r border-line px-3.5 text-[18px] font-semibold text-muted">+380</span>
-              <input name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3.5 text-[18px] outline-none placeholder:text-[#9AA5A0]">
+            <!-- Кнопка вибору: це radio, тому обраним може бути лише один варіант -->
+            <label class="btn btn-ghost mt-auto min-h-13 w-full cursor-pointer rounded-xl text-[17px] select-none active:scale-[.98] has-checked:border-green has-checked:bg-green has-checked:text-white">
+              <input type="radio" name="plan" value="extended" data-name="Elmeda Розширений" class="sr-only">
+              <span class="group-has-checked/plan:hidden">Обрати</span>
+              <span class="hidden items-center gap-1.5 group-has-checked/plan:inline-flex"><svg class="icon size-5" aria-hidden="true"><use href="#i-check"/></svg>Обрано</span>
             </label>
-            <button type="submit" class="btn btn-green min-h-14 w-full rounded-xl text-[18px] active:scale-[.98]">Отримати</button>
-          </form>
+          </article>
         </div>
 
-        <!-- Підтвердження після натискання (поки макет: показує js/main.js) -->
-        <div id="thanks" class="hidden flex-col items-center gap-2 rounded-xl border-2 border-green bg-green-soft p-6 text-center">
-          <svg class="icon size-12 text-green" aria-hidden="true"><use href="#i-done"/></svg>
-          <b class="text-xl">Дякуємо!</b>
-          <p class="text-base text-muted">Асистент передзвонить найближчим часом.</p>
+        <!-- Крапки: яка картка зараз перед очима (підсвічує js/main.js) -->
+        <div id="plans-dots" class="flex justify-center gap-1.5">
+          <span class="on h-2 w-2 rounded-full bg-line transition-all [&.on]:w-5.5 [&.on]:bg-green"></span>
+          <span class="h-2 w-2 rounded-full bg-line transition-all [&.on]:w-5.5 [&.on]:bg-green"></span>
         </div>
-
-        <p id="consent" class="text-center text-sm text-muted">Ми передзвонимо й усе налаштуємо. Натискаючи кнопку, ви погоджуєтеся з <a href="#" class="underline">Умовами</a>.</p>
       </section>
 
-      <!-- ===== 3. Маєте питання? Зв'язатися ===== -->
+      <!-- ===== 3. Телефон: одна форма для обраного асистента ===== -->
+      <form id="form" class="flex scroll-mt-4 flex-col gap-3.5 rounded-2xl bg-white p-4 shadow-[0_6px_20px_rgb(20_38_27/0.10)]" novalidate>
+        <p class="text-center text-[15px] text-muted">Асистент: <b id="chosen" class="text-ink">не обрано</b></p>
+        <label class="flex min-h-13 items-center rounded-xl border-[1.5px] border-line bg-white transition focus-within:border-green">
+          <span class="border-r border-line px-3.5 text-[18px] font-semibold text-muted">+380</span>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Номер телефону" aria-label="Номер телефону" class="min-w-0 flex-1 bg-transparent px-3.5 py-3.5 text-[18px] outline-none placeholder:text-[#9AA5A0]">
+        </label>
+        <button type="submit" class="btn btn-green min-h-14 w-full rounded-xl text-[18px] active:scale-[.98]">Отримати асистента</button>
+        <p id="consent" class="text-center text-sm text-muted">Ми передзвонимо й усе налаштуємо. Натискаючи кнопку, ви погоджуєтеся з <a href="#" class="underline">Умовами</a>.</p>
+      </form>
+
+      <!-- Підтвердження після натискання (поки макет: показує js/main.js) -->
+      <div id="thanks" class="hidden flex-col items-center gap-2 rounded-2xl border-2 border-green bg-green-soft p-6 text-center">
+        <svg class="icon size-12 text-green" aria-hidden="true"><use href="#i-done"/></svg>
+        <b class="text-xl">Дякуємо!</b>
+        <p class="text-base text-muted">Асистент передзвонить найближчим часом.</p>
+      </div>
+      </div>
+
+      <!-- ===== 4. Маєте питання? Зв'язатися ===== -->
       <section class="flex flex-col items-center gap-3">
         <h2 class="text-lg font-bold">Маєте питання? Напишіть нам</h2>
         <div class="flex w-full gap-2.5">
@@ -165,7 +169,7 @@
         <p class="text-sm text-muted">Консультація щодо сервісу — безкоштовно</p>
       </section>
 
-      <!-- ===== 4. Коротко ===== -->
+      <!-- ===== 5. Коротко ===== -->
       <section class="flex flex-col gap-2">
         <h2 class="px-1 text-[15px] font-bold text-muted">Питання</h2>
         <div class="overflow-hidden rounded-xl border border-line bg-white">
